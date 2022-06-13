@@ -8,22 +8,30 @@ body {
 }
 
 main {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
 }
 
 main > div {
-    display: flex;
+    /* display: flex; */
     /* align-items: center; */
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .todo-list {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
+     /* display: flex;
+    flex-direction: row;
+    align-items: center;  */
+    
+}
+
+.todo-list > div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    
 }
 
 
@@ -34,4 +42,10 @@ input {
 button {
     background-color: green;
     margin: 1em 0 1em 0;
+}
+
+.delete-btn {
+    width: 4em;
+    height: 2em;
+    margin: 0 0 0 2em;
 }
