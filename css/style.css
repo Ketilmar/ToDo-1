@@ -31,8 +31,13 @@ main > div {
     display: flex;
     flex-direction: row;
     align-items: baseline;
+    justify-content: space-between;
     
 }
+
+/* .todo-list > div > p {
+    text-align: left;
+} */
 
 
 input {
