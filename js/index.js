@@ -25,8 +25,10 @@ document.getElementById("input").addEventListener("keydown", (e) => {
     addTodo()
     input.value = ""
 
-    
-    console.log(e.path[e.path.length - 2]);
+    // testing
+    let htmlDocument = e.path[e.path.length - 2]
+    console.log(htmlDocument);
+
 })
 
 
@@ -44,24 +46,31 @@ function addTodo() {
     p.textContent = input.value
     todoList.append(div)
     div.append(date.toLocaleDateString(), ": " , p, button)
+
+    let todoArray = []
+    todoArray += div.append(date.toLocaleDateString(), ": " , p, button)
+    console.log(todoArray.length);
     input.focus()
 }
 
 
 
 
-function createNewNode(nodeType, appendNodeTo, classes, text ){
-    // console.log(nodeType, appendNodeTo, classes, text);
-    const ourNode = document.createElement(nodeType)
-    // console.log(appendNodeTo);
-    // ourNode.append(appendNodeTo);
-    appendNodeTo.append( ourNode);
-    ourNode.setAttribute('class', classes);
-    ourNode.textContent = text;
+// //forsøk på å teste en annen metode til å lage dynamisk innhold. Har ikke fått det helt til mtp. plassering av knapper
+// function createNewNode(nodeType, appendNodeTo, classes, text ){
+//     // console.log(nodeType, appendNodeTo, classes, text);
+//     const ourNode = document.createElement(nodeType)
+//     // console.log(appendNodeTo);
+//     // ourNode.append(appendNodeTo);
+//     ourNode.setAttribute('class', classes);
+//     ourNode.textContent = text;
+//     const div = document.createElement("div")
+//     appendNodeTo.append(div, ourNode);
+//     // todoList.append(div);
 
-    console.log(ourNode);
-    // console.log(document.body);
-};
+//     console.log(div, ourNode);
+//     // console.log(document.body);
+// };
 // createNewNode("button", todoList, ".delete-btn", "Dette er en tekst")
 
 
