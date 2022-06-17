@@ -25,32 +25,48 @@ document.getElementById("input").addEventListener("keydown", (e) => {
     addTodo()
     input.value = ""
 
+    // del av sort testing
+    // sortByDate()
+
     // testing
     let htmlDocument = e.path[e.path.length - 2]
     console.log(htmlDocument);
 
+    // debug 
+    console.log(todoList);
+
 })
 
 
-// checks for actual input. Creates 3 new elements and adds the value from input field
+// Creates an li node with paragraph and button childnodes. Adds the value from input field.
 function addTodo() {
+    // checks for actual input.
     if (!input.value){
         return;
     }
 
-    const div = document.createElement("div")
-    const p = document.createElement("p")
-    const button = document.createElement("button");
-    let date = new Date()    
-    button.classList = "delete-btn"
-    p.textContent = input.value
-    todoList.append(div)
-    div.append(date.toLocaleDateString(), ": " , p, button)
+    const liEl = document.createElement("li");
+    const pEl = document.createElement("p");
+    const buttonEl = document.createElement("button");
+    let date = new Date();
 
-    let todoArray = []
-    todoArray += div.append(date.toLocaleDateString(), ": " , p, button)
-    console.log(todoArray.length);
-    input.focus()
+    buttonEl.classList = "delete-btn";
+    buttonEl.textContent = "Delete";
+    pEl.textContent = input.value;
+
+    todoList.append(liEl);
+    // liEl.append(date.toLocaleDateString(), ": " , pEl, buttonEl)
+    liEl.append(date.toLocaleTimeString(), ": " , pEl, buttonEl)
+
+
+    // debug
+    // console.log(date.toLocaleDateString(), date.toLocaleTimeString());
+
+    // tester noe med array
+    // let todoArray = []
+    // todoArray += div.append(date.toLocaleDateString(), ": " , p, button)
+    // console.log(todoArray.length);
+    // input.focus()
 }
 
 
@@ -82,6 +98,7 @@ document.addEventListener('click', (e) => {
     // guard clause to prevent from deleting everything we click except delete-btn
     if (!e.target.classList.contains("delete-btn")) return;
 
+  
     // popup to prevent accidental deleting
     if(confirm("Are u sure you want to delete?")) {
     } 
@@ -91,3 +108,39 @@ document.addEventListener('click', (e) => {
     e.target.parentNode.remove();
 
 })
+
+
+// sort function. Sorting by text content of "todo-list > li" node that 
+// is a timestring.
+let numericalIndex = false
+
+function sortByDate() {
+    let todoArrayDate = [];
+    document.querySelectorAll("li").forEach(li => todoArrayDate.push(li))
+    todoArrayDate.sort((a, b) => a.textContent.localeCompare(b.textContent))
+
+    numericalIndex = !numericalIndex;
+    numericalIndex ? null : todoArrayDate.reverse();
+
+    todoArrayDate.forEach(node => document.querySelector(".todo-list").append(node))
+
+    // debug
+    // console.log(todoArray[0].textContent);
+    // console.log(todoArrayDate[0]);
+    // console.log(document.querySelector(".todo-list"));
+}
+
+let alphabeticIndex = false;
+
+function sortByName() {
+    let todoArrayName = [];
+    // add (push) each element to end of array in sequense
+    document.querySelectorAll(".todo-list > li").forEach(li => todoArrayName.push(li));
+    // console.log(todoArrayName[0].firstElementChild);
+    todoArrayName.sort((a, b) => a.firstElementChild.innerText.localeCompare(b.firstElementChild.innerText));
+
+    alphabeticIndex = !alphabeticIndex;
+    alphabeticIndex ? null : todoArrayName.reverse();
+
+    todoArrayName.forEach(node => document.querySelector(".todo-list").append(node));
+}
