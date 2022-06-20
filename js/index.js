@@ -3,6 +3,38 @@ const input = document.querySelector("#input")
 const inputBtn = document.querySelector("#input-btn")
 const todoList = document.querySelector(".todo-list")
 
+//--------------------------------------------------------
+// this is part of my test to store input in an object ---
+
+let todoId = 0
+let savedTodo = []
+
+function newTodoObj(id, date, title, text, tags, li) {
+    return {
+        id,
+        date,
+        title,
+        text,
+        tags,
+        node: li
+    }
+}
+
+// -------------------------------------
+//      LOAD LOCALSTORAGE
+// -------------------------------------
+
+window.addEventListener('load', () => {
+    const dataFromStorage = JSON.parse(localStorage.getItem('todos'))
+    console.log(dataFromStorage)
+
+    dataFromStorage.forEach(liObj => {
+        addTodo(liObj.text)
+        console.log(liObj.text);
+    })
+})
+
+//------- end ---------
 
 
 // listen for click on "save now" button. Runs addTodo() function and clears input field
@@ -42,13 +74,31 @@ function addTodo() {
     buttonEl.textContent = "Delete";
     pEl.textContent = input.value;
 
-    todoList.append(liEl);
+    
     liEl.append(date.toLocaleString("no-NO"), ":  " , pEl, buttonEl)
+    todoList.append(liEl);
 
 
-    // debug
+    //------------------------------------------
+    //-------- testing object storing ----------
+
+    todoId++
+    const ourObj = newTodoObj(todoId, date.toLocaleString(), "tullball", "tull", "tull, ball, tullball", liEl);
+
+    console.log(ourObj);
+    savedTodo.push(ourObj)
+
+    //--------------------
+    // Local storage
+    //--------------------
+    localStorage.setItem("todos", JSON.stringify(savedTodo));
+    console.log(localStorage);
+    console.log(savedTodo);
+
+    // -----------------
+    // ------ debug ----
     // console.log(date.toLocaleDateString(), date.toLocaleTimeString());
-}
+}; // end addTodo()
 
 
 
@@ -112,7 +162,7 @@ function sortByName() {
 
 
 
-
+// console.log(newTodoObj(0,0,0,"test",0,0));
 
 //-------------------------------
 // div testing and junk
