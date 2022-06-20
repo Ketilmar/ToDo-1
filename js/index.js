@@ -9,14 +9,12 @@ const todoList = document.querySelector(".todo-list")
 let todoId = 0
 let savedTodo = []
 
-function newTodoObj(id, date, title, text, tags, li) {
+function newTodoObj(id, date, text, liEl) {
     return {
         id,
         date,
-        title,
         text,
-        tags,
-        node: li
+        node: liEl
     }
 }
 
@@ -83,7 +81,7 @@ function addTodo() {
     //-------- testing object storing ----------
 
     todoId++
-    const ourObj = newTodoObj(todoId, date.toLocaleString(), "tullball", "tull", "tull, ball, tullball", liEl);
+    const ourObj = newTodoObj(todoId, date.toLocaleString(), pEl.textContent , liEl);
 
     console.log(ourObj);
     savedTodo.push(ourObj)
@@ -173,15 +171,14 @@ function sortByName() {
 // function createNewNode(nodeType, appendNodeTo, classes, text ){
 //     // console.log(nodeType, appendNodeTo, classes, text);
 //     const ourNode = document.createElement(nodeType)
-//     // console.log(appendNodeTo);
-//     // ourNode.append(appendNodeTo);
+//      console.log(appendNodeTo);
+//    // ourNode.append(appendNodeTo);
 //     ourNode.setAttribute('class', classes);
 //     ourNode.textContent = text;
 //     const div = document.createElement("div")
 //     appendNodeTo.append(div, ourNode);
 //     // todoList.append(div);
-
 //     console.log(div, ourNode);
 //     // console.log(document.body);
 // };
-// createNewNode("button", todoList, ".delete-btn", "Dette er en tekst")
+// // createNewNode("button", liEl, ".delete-btn", "Dette er en tekst")
