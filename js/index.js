@@ -26,9 +26,17 @@ window.addEventListener('load', () => {
     const dataFromStorage = JSON.parse(localStorage.getItem('todos'))
     console.log(dataFromStorage)
 
+    // create html node from storage and load in todo list
     dataFromStorage.forEach(liObj => {
-        addTodo(liObj.text)
-        console.log(liObj.text);
+
+        const liNode = new DOMParser().parseFromString(liObj.node, "text/html").body.firstElementChild; // takes outerHTML string an makes a node
+        console.log(liNode);
+        todoList.append(liNode)
+        // todoList.append(liObj.node);
+        // console.log([todoList][0]);
+        // console.log(todoList);
+        // console.log(liObj);
+        // console.log(liObj.node.substring(0, liObj.node.length));
     })
 })
 
@@ -81,7 +89,7 @@ function addTodo() {
     //-------- testing object storing ----------
 
     todoId++
-    const ourObj = newTodoObj(todoId, date.toLocaleString(), pEl.textContent , liEl);
+    const ourObj = newTodoObj(todoId, date.toLocaleString(), pEl.textContent , liEl.outerHTML);
 
     console.log(ourObj);
     savedTodo.push(ourObj)
