@@ -22,24 +22,27 @@ function newTodoObj(id, date, text, liEl) {
 //      LOAD LOCALSTORAGE
 // -------------------------------------
 
-window.addEventListener('load', () => {
-    const dataFromStorage = JSON.parse(localStorage.getItem('todos'))
-    console.log(dataFromStorage)
+function loadLocalStore() {
+    window.addEventListener('load', () => {
+        const dataFromStorage = JSON.parse(localStorage.getItem('todos'))
+        console.log(dataFromStorage)
 
-    // create html node from storage and load in todo list
-    dataFromStorage.forEach(liObj => {
+        // create html node from storage and load in todo list
+        dataFromStorage.forEach(liObj => {
 
-        const liNode = new DOMParser().parseFromString(liObj.node, "text/html").body.firstElementChild; // takes outerHTML string an makes a node
-        console.log(liNode);
-        todoList.append(liNode)
-        // todoList.append(liObj.node);
-        // console.log([todoList][0]);
-        // console.log(todoList);
-        // console.log(liObj);
-        // console.log(liObj.node.substring(0, liObj.node.length));
+            const liNode = new DOMParser().parseFromString(liObj.node, "text/html").body.firstElementChild; // takes outerHTML string an makes a node
+            console.log(liNode);
+            todoList.append(liNode)
+            // todoList.append(liObj.node);
+            // console.log([todoList][0]);
+            // console.log(todoList);
+            // console.log(liObj);
+            // console.log(liObj.node.substring(0, liObj.node.length));
+        })
     })
-})
+}
 
+loadLocalStore()
 //------- end ---------
 
 
@@ -51,7 +54,7 @@ document.getElementById("input-btn").addEventListener("click", (e) => {
 })
 
 // listen for keydown, with guard clause to return for all other keys than Enter
-document.getElementById("input").addEventListener("keydown", (e) => {
+document.getElementById("input").addEventListener("keyup", (e) => {
     if(e.code !== "Enter") return;
     
     addTodo()
@@ -88,19 +91,25 @@ function addTodo() {
     //------------------------------------------
     //-------- testing object storing ----------
 
-    todoId++
-    const ourObj = newTodoObj(todoId, date.toLocaleString(), pEl.textContent , liEl.outerHTML);
+    function storeLocal(){
+        // loadLocalStore()
+        todoId++
+        const ourObj = newTodoObj(todoId, date.toLocaleString(), pEl.textContent , liEl.outerHTML);
 
-    console.log(ourObj);
-    savedTodo.push(ourObj)
+        console.log(ourObj);
+        savedTodo.push(ourObj)
+        console.log(todoList.firstElementChild)
 
-    //--------------------
-    // Local storage
-    //--------------------
-    localStorage.setItem("todos", JSON.stringify(savedTodo));
-    console.log(localStorage);
-    console.log(savedTodo);
+        //--------------------
+        // Local storage
+        //--------------------
+        localStorage.setItem("todos", JSON.stringify(savedTodo));
+        console.log(localStorage);
+        console.log(savedTodo);
+    }
 
+    storeLocal()
+    
     // -----------------
     // ------ debug ----
     // console.log(date.toLocaleDateString(), date.toLocaleTimeString());
@@ -124,6 +133,7 @@ document.addEventListener('click', (e) => {
 
     // removes the parent of the click event target
     e.target.parentNode.remove();
+    console.log(e.target.parentNode);
 
 })
 
