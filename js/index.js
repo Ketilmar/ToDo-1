@@ -85,7 +85,8 @@ function addTodo() {
 
     
     liEl.append(date.toLocaleString("no-NO"), ":  " , pEl, buttonEl)
-    todoList.append(liEl);
+    // todoList.append(liEl);
+    // console.log(liEl);
 
 
     //------------------------------------------
@@ -99,6 +100,9 @@ function addTodo() {
         console.log(ourObj);
         savedTodo.push(ourObj)
         console.log(todoList.firstElementChild)
+
+        // new method to add nodes to DOM. Håpet er at jeg nå kan bruke todoId for å hente/slette localstore
+        todoList.append(new DOMParser().parseFromString(ourObj.node, "text/html").body.firstElementChild);
 
         //--------------------
         // Local storage
@@ -133,7 +137,7 @@ document.addEventListener('click', (e) => {
 
     // removes the parent of the click event target
     e.target.parentNode.remove();
-    console.log(e.target.parentNode);
+    // console.log(e.target.parentNode);
 
 })
 
